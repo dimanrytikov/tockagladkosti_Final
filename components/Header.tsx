@@ -86,6 +86,22 @@ export const Header: React.FC<HeaderProps> = ({ onOpenModal, cartItemCount, onCa
                     <div className="flex items-center space-x-3 sm:space-x-4">
                         {/* Desktop Icons with Tooltips */}
                         <div className="hidden lg:flex items-center space-x-4">
+                             <div className="relative group flex items-center justify-center">
+                                <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Перейти в Instagram">
+                                    <span className="fab fa-instagram text-2xl text-text-muted transition-colors group-hover:text-accent cursor-pointer" aria-hidden="true"></span>
+                                </a>
+                                <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-max max-w-xs bg-surface text-text-main text-sm rounded-md p-2 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all pointer-events-none text-center">
+                                    <p className="font-bold">Instagram</p>
+                                </div>
+                            </div>
+                             <div className="relative group flex items-center justify-center">
+                                <a href={SOCIAL_LINKS.telegram} target="_blank" rel="noopener noreferrer" aria-label="Перейти в Telegram">
+                                    <span className="fab fa-telegram-plane text-2xl text-text-muted transition-colors group-hover:text-accent cursor-pointer" aria-hidden="true"></span>
+                                </a>
+                                <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-max max-w-xs bg-surface text-text-main text-sm rounded-md p-2 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all pointer-events-none text-center">
+                                    <p className="font-bold">Telegram</p>
+                                </div>
+                            </div>
                             <div className="relative group flex items-center justify-center">
                                 <a href={SOCIAL_LINKS.gis} target="_blank" rel="noopener noreferrer" aria-label="Открыть в 2ГИС">
                                     <span className="fas fa-map-marker-alt text-2xl text-text-muted transition-colors group-hover:text-accent cursor-pointer" aria-hidden="true"></span>
@@ -105,6 +121,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenModal, cartItemCount, onCa
                                 </div>
                             </div>
                         </div>
+                        
+                        {/* Phone icon for mobile */}
+                        <a href={`tel:${CONTACT_PHONE}`} aria-label="Позвонить" className="lg:hidden text-2xl text-text-main hover:text-accent transition duration-300">
+                            <span className="fas fa-phone" aria-hidden="true"></span>
+                        </a>
 
                         <button onClick={onCartClick} className="relative text-2xl text-text-main hover:text-accent transition duration-300" aria-label="Открыть корзину">
                             <span className="fas fa-shopping-basket" aria-hidden="true"></span>

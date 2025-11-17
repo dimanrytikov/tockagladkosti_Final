@@ -41,7 +41,7 @@ const GiftCertificates: React.FC<GiftCertificatesProps> = ({ onOpenModal }) => {
     };
 
     const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.replace(/\D/g, ''); // Allow only digits
+        const value = e.target.value.replace(/\D/g, '');
         setCustomAmount(value);
         setAmount(value);
     };
@@ -68,20 +68,28 @@ const GiftCertificates: React.FC<GiftCertificatesProps> = ({ onOpenModal }) => {
                         Лучший подарок — это забота. Подарите своим близким сертификат на любую услугу или косметику в "Точке Гладкости".
                     </p>
                 </div>
-
-                <div className={`max-w-xl mx-auto transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '200ms' }}>
+                
+                {/* Changed to a two-column layout for a more dynamic feel */}
+                <div className={`grid lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '200ms' }}>
                     
-                    {/* Interactive 3D Certificate */}
-                    <div className="group [perspective:1000px] mb-8">
+                    {/* Column 1: Interactive 3D Certificate */}
+                    <div className="group [perspective:1200px]">
                         <div
-                            className="w-full max-w-md mx-auto aspect-[1.6/1] rounded-2xl p-6 shadow-2xl transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(10deg)_rotateX(-5deg)] bg-slate-900 border border-accent/30 flex flex-col justify-between relative overflow-hidden"
-                            style={{ background: 'radial-gradient(circle, #2c2c2c 0%, #1a1a1a 100%)' }}
+                            className="w-full aspect-[1.6/1] rounded-2xl p-6 shadow-2xl transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(15deg)_rotateX(-10deg)] border border-accent/30 flex flex-col justify-between relative overflow-hidden"
+                            // New background for a more luxurious feel
+                            style={{ 
+                                background: 'linear-gradient(145deg, #222 0%, #111 100%)',
+                            }}
                         >
-                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-surface/50 via-secondary/10 to-transparent opacity-50"></div>
-                            <div className="absolute -bottom-16 -left-16 w-48 h-48 font-heading text-9xl text-accent/5 opacity-50 select-none [transform:rotate(-30deg)]">ТГ</div>
+                            {/* Gold vein effect */}
+                            <div className="absolute top-0 left-0 w-full h-full opacity-20" style={{background: 'url(https://www.transparenttextures.com/patterns/cracks.png)', mixBlendMode: 'overlay', filter: 'invert(1) brightness(1.5) contrast(1.5)'}}></div>
+                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-accent/20 via-transparent to-transparent opacity-50"></div>
+                            
+                            {/* Embossed Logo */}
+                            <div className="absolute -bottom-10 -right-10 w-48 h-48 font-heading text-9xl text-accent/10 opacity-50 select-none [transform:rotate(-20deg)]" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.5)'}}>ТГ</div>
                             
                             <div className="relative z-10">
-                                <h4 className="font-heading text-accent text-2xl">Подарочный Сертификат</h4>
+                                <h4 className="font-heading text-accent text-2xl" style={{textShadow: '0 0 10px rgba(192, 152, 46, 0.5)'}}>Подарочный Сертификат</h4>
                                 <p className="text-text-muted text-sm">от студии "Точка Гладкости"</p>
                             </div>
                             <div className="relative z-10 text-right">
@@ -93,9 +101,9 @@ const GiftCertificates: React.FC<GiftCertificatesProps> = ({ onOpenModal }) => {
                         </div>
                     </div>
 
-                    {/* Form Controls */}
-                    <div className="w-full max-w-md mx-auto text-center">
-                        <h3 className="font-heading text-2xl font-normal text-text-main mb-6">Выберите или введите номинал:</h3>
+                    {/* Column 2: Form Controls */}
+                    <div className="text-center lg:text-left">
+                        <h3 className="font-heading text-2xl sm:text-3xl font-normal text-text-main mb-6">Выберите или введите номинал:</h3>
                         <div className="grid grid-cols-3 gap-3 mb-4">
                             {presetAmounts.map(preset => (
                                 <button
@@ -108,17 +116,23 @@ const GiftCertificates: React.FC<GiftCertificatesProps> = ({ onOpenModal }) => {
                             ))}
                         </div>
                         
-                        <input
-                            id="custom-amount"
-                            type="text"
-                            inputMode="numeric"
-                            placeholder="Другая сумма"
-                            value={customAmount}
-                            onChange={handleCustomAmountChange}
-                            className="w-full p-3 border-2 border-surface rounded-lg shadow-sm focus:outline-none focus:ring-2 bg-primary placeholder:text-text-muted focus:border-accent focus:ring-accent text-lg font-bold text-center"
-                        />
+                        <div className="relative">
+                            <input
+                                id="custom-amount"
+                                type="text"
+                                inputMode="numeric"
+                                placeholder="Своя сумма"
+                                value={customAmount}
+                                onChange={handleCustomAmountChange}
+                                className="w-full p-3 pl-10 pr-4 border-2 border-surface rounded-lg shadow-sm focus:outline-none focus:ring-2 bg-primary placeholder:text-text-muted focus:border-accent focus:ring-accent text-lg font-bold text-center"
+                            />
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted text-lg font-bold">
+                                ₽
+                            </span>
+                        </div>
 
-                        <p className="text-xs text-text-muted text-center my-6">
+
+                        <p className="text-xs text-text-muted my-6 lg:text-left">
                             Сертификат действует на все услуги и товары. Все акции и скидки также применяются.
                         </p>
 

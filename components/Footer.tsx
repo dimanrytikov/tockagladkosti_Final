@@ -58,6 +58,15 @@ export const Footer: React.FC = () => {
                                         <a href={SOCIAL_LINKS.gis} target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-accent transition-colors duration-200 block" aria-label="Открыть адрес в 2ГИС">
                                             д. Грановщина, ул. Георгия Буркова, 2
                                         </a>
+                                        <a 
+                                            href={SOCIAL_LINKS.gis} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer" 
+                                            className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-surface hover:bg-accent hover:text-text-on-accent text-accent font-semibold rounded-lg transition-colors duration-300 border border-accent/50 text-sm"
+                                        >
+                                            <span className="fas fa-star" aria-hidden="true"></span>
+                                            Мы в 2ГИС — оставьте отзыв!
+                                        </a>
                                     </div>
                                 </div>
                                 <div className="flex items-start">
@@ -107,11 +116,27 @@ export const Footer: React.FC = () => {
             <div className="py-8 bg-primary border-t border-gray-800">
                  <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center">
                      <p className="text-text-muted text-sm mb-4 sm:mb-0">&copy; {new Date().getFullYear()} Точка Гладкости. Все права защищены.</p>
-                     <div className="flex justify-center space-x-5 text-xl text-text-muted">
-                        <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors duration-200" aria-label="Написать в WhatsApp"><span className="fab fa-whatsapp" aria-hidden="true"></span></a>
-                        <a href={SOCIAL_LINKS.telegram} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors duration-200" aria-label="Перейти в Telegram"><span className="fab fa-telegram-plane" aria-hidden="true"></span></a>
-                        <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors duration-200" aria-label="Перейти в Instagram"><span className="fab fa-instagram" aria-hidden="true"></span></a>
-                        <a href={SOCIAL_LINKS.gis} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors duration-200" aria-label="Перейти в 2ГИС"><span className="fas fa-map-marked-alt" aria-hidden="true"></span></a>
+                     <div className="flex justify-center space-x-4">
+                        {/* WhatsApp */}
+                        <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp"
+                           className="group w-12 h-12 rounded-full bg-surface hover:bg-[#25D366] text-text-muted hover:text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-lg">
+                            <span className="fab fa-whatsapp text-2xl" aria-hidden="true"></span>
+                        </a>
+                        {/* Telegram */}
+                        <a href={SOCIAL_LINKS.telegram} target="_blank" rel="noopener noreferrer" aria-label="Перейти в Telegram"
+                           className="group w-12 h-12 rounded-full bg-surface hover:bg-[#0088cc] text-text-muted hover:text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-lg">
+                            <span className="fab fa-telegram-plane text-2xl" aria-hidden="true"></span>
+                        </a>
+                        {/* Instagram */}
+                        <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Перейти в Instagram"
+                           className="group w-12 h-12 rounded-full bg-surface hover:bg-gradient-to-br from-purple-600 via-pink-500 to-yellow-500 text-text-muted hover:text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-lg">
+                            <span className="fab fa-instagram text-2xl" aria-hidden="true"></span>
+                        </a>
+                         {/* 2GIS */}
+                        <a href={SOCIAL_LINKS.gis} target="_blank" rel="noopener noreferrer" aria-label="Перейти в 2ГИС"
+                           className="group w-12 h-12 rounded-full bg-surface hover:bg-[#46AD49] text-text-muted hover:text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-lg">
+                            <span className="fas fa-map-marked-alt text-2xl" aria-hidden="true"></span>
+                        </a>
                     </div>
                  </div>
             </div>

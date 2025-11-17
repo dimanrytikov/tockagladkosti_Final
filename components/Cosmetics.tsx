@@ -49,6 +49,7 @@ const getProductThemeColors = (theme: string) => {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
     const themeColors = getProductThemeColors(product.theme);
+    const [addedState, setAddedState] = useState<Record<string, boolean>>({});
 
     const handleAddToCartClick = (variant: { size: string; price: number; }) => {
         const cartItem: CartItem = {
@@ -61,7 +62,24 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
             productRef: product,
         };
         onAddToCart(cartItem);
+        
+        setAddedState(prev => ({ ...prev, [variant.size]: true }));
     };
+
+    useEffect(() => {
+        const timers = Object.keys(addedState).map(key => {
+            if (addedState[key]) {
+                return setTimeout(() => {
+                    setAddedState(prev => ({ ...prev, [key]: false }));
+                }, 2000);
+            }
+            return null;
+        }).filter(Boolean);
+
+        return () => {
+            timers.forEach(timer => clearTimeout(timer!));
+        };
+    }, [addedState]);
 
     return (
         <div className="bg-secondary rounded-xl shadow-lg flex flex-col h-full">
@@ -84,21 +102,36 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
                     </div>
                 </div>
                 <div className="mt-auto pt-4 space-y-3 border-t border-white/10">
-                    {product.variants.map(variant => (
-                        <div key={variant.size} className="flex justify-between items-center text-sm">
-                            <div className='flex-grow'>
-                                <span className={`text-text-muted`}>{variant.size}</span>
-                                <span className={`block font-bold text-base text-accent`}>{variant.price.toLocaleString('ru-RU')} р.</span>
+                    {product.variants.map(variant => {
+                        const isAdded = addedState[variant.size];
+                        return (
+                            <div key={variant.size} className="flex justify-between items-center text-sm">
+                                <div className='flex-grow'>
+                                    <span className={`text-text-muted`}>{variant.size}</span>
+                                    <span className={`block font-bold text-base text-accent`}>{variant.price.toLocaleString('ru-RU')} р.</span>
+                                </div>
+                                <button 
+                                    onClick={() => handleAddToCartClick(variant)}
+                                    disabled={isAdded}
+                                    className={`font-semibold px-4 py-2 text-sm rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-1.5 ${
+                                        isAdded 
+                                        ? 'bg-green-600 text-white' 
+                                        : 'bg-accent text-text-on-accent hover:bg-yellow-600'
+                                    }`}
+                                    aria-label={`Добавить в корзину ${product.name} ${variant.size}`}
+                                >
+                                    {isAdded ? (
+                                        <>
+                                        <span className="fas fa-check text-xs"></span>
+                                        Добавлено!
+                                        </>
+                                    ) : (
+                                        'В корзину'
+                                    )}
+                                </button>
                             </div>
-                            <button 
-                                onClick={() => handleAddToCartClick(variant)}
-                                className="bg-accent text-text-on-accent font-semibold px-4 py-2 text-sm rounded-lg hover:bg-yellow-600 transition-colors whitespace-nowrap"
-                                aria-label={`Добавить в корзину ${product.name} ${variant.size}`}
-                            >
-                                В корзину
-                            </button>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </div>

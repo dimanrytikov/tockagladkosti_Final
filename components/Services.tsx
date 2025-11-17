@@ -1,5 +1,3 @@
-
-
 import React, { useRef, useState, useEffect } from 'react';
 import { servicesData } from '../constants';
 import { ModalData, Service, CartItem } from '../types';
@@ -12,6 +10,7 @@ interface ServiceCardProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({ service, onAddToCart }) => {
     const [purchaseType, setPurchaseType] = useState<'session' | 'course'>('session');
     const [courseSessions, setCourseSessions] = useState(5);
+    const [isAdded, setIsAdded] = useState(false);
 
     const hasCourseOption = !['detox', 'express-clean', 'premium'].includes(service.id);
 
@@ -29,7 +28,17 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onAddToCart }) => {
             serviceRef: service,
         };
         onAddToCart(cartItem);
+        setIsAdded(true);
     };
+
+    useEffect(() => {
+        if (isAdded) {
+            const timer = setTimeout(() => {
+                setIsAdded(false);
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [isAdded]);
 
     const discountedPrice = Math.round(service.price * 0.9);
     const finalPrice = hasCourseOption && purchaseType === 'course'
@@ -107,9 +116,20 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onAddToCart }) => {
 
                 <button 
                     onClick={handleAddToCartClick} 
-                    className="w-full cta-button px-8 py-3 mt-auto flex items-center justify-center gap-2">
-                    <span className="fas fa-shopping-basket" aria-hidden="true"></span>
-                    Добавить в корзину
+                    disabled={isAdded}
+                    className={`w-full cta-button px-8 py-3 mt-auto flex items-center justify-center gap-2 ${isAdded ? 'bg-green-600 hover:bg-green-600' : ''}`}
+                >
+                    {isAdded ? (
+                        <>
+                            <span className="fas fa-check" aria-hidden="true"></span>
+                            Добавлено!
+                        </>
+                    ) : (
+                        <>
+                            <span className="fas fa-shopping-basket" aria-hidden="true"></span>
+                            Добавить в корзину
+                        </>
+                    )}
                 </button>
             </div>
         </div>

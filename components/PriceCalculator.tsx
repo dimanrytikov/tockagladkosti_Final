@@ -226,7 +226,7 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({ onOpenModal }) => {
                     <div className={`lg:col-span-1 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '300ms' }}>
                         <div className="sticky top-28 bg-primary p-6 rounded-2xl shadow-lg text-text-main font-sans">
                             <h3 className="font-heading text-2xl font-normal text-text-main mb-4">Ваш Комплекс:</h3>
-                            <div className="min-h-[100px] border-b border-gray-700 pb-4 mb-4 text-text-main">
+                            <div className="min-h-[100px] max-h-[180px] overflow-y-auto border-b border-gray-700 pb-4 mb-4 text-text-main pr-2">
                                 {calculation.count === 0 ? (
                                     <p className="text-text-muted">Выберите зоны слева...</p>
                                 ) : (
@@ -297,7 +297,7 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({ onOpenModal }) => {
                 </div>
                 <div className={`text-center text-text-muted mt-12 space-y-2 font-sans max-w-2xl mx-auto transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '400ms' }}>
                     {calculation.isFullBodyMode ? (
-                        <p className="text-lg text-accent font-semibold">Комплекс "Всё тело" уже включает максимальную выгоду.</p>
+                        <p className="text-lg text-accent font-semibold">Комплекс 'Всё тело' уже включает максимальную выгоду.</p>
                     ) : (
                         <p className="text-lg"><strong className="text-text-main">2 зоны:</strong> скидка 10% | <strong className="text-text-main">3 зоны:</strong> скидка 15% | <strong className="text-text-main">4 зоны:</strong> скидка 20% | <strong className="text-text-main">5+ зон:</strong> скидка 25%</p>
                     )}

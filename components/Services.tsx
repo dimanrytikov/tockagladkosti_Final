@@ -35,6 +35,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onAddToCart }) => {
     const finalPrice = hasCourseOption && purchaseType === 'course'
         ? discountedPrice * courseSessions
         : service.price;
+    
+    const originalCourseTotal = service.price * courseSessions;
+    const savings = originalCourseTotal - finalPrice;
 
     return (
         <div className="bg-secondary rounded-xl shadow-lg h-full">
@@ -43,7 +46,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onAddToCart }) => {
                 <p className="text-lg font-semibold text-text-main mb-4">{service.title}</p>
                 <p className="text-text-muted mb-6 font-sans flex-grow">{service.description}</p>
                 
-                {/* Purchase options */}
                 <div className="mb-4 bg-primary p-4 rounded-xl">
                     {hasCourseOption ? (
                         <>
@@ -63,7 +65,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onAddToCart }) => {
                             </div>
 
                             {purchaseType === 'course' && (
-                                <div className="flex items-center justify-between mb-3 fade-in-content">
+                                <div className="flex items-center justify-between mb-3 animate-fade-in">
                                     <label className="text-text-main font-semibold">Кол-во сеансов:</label>
                                     <div className="flex items-center gap-2">
                                         <button onClick={() => setCourseSessions(s => Math.max(5, s - 1))} className="w-8 h-8 rounded-md bg-surface hover:bg-accent hover:text-text-on-accent transition-colors">-</button>
@@ -75,18 +77,31 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onAddToCart }) => {
                         </>
                     ) : null }
 
-                    <div className="text-center mt-3">
-                        {hasCourseOption && purchaseType === 'course' && (
-                             <p className="text-sm text-accent mb-1">
-                                {discountedPrice.toLocaleString('ru-RU')} р. за сеанс
-                            </p>
+                    <div className="text-center mt-3 min-h-[110px] flex flex-col justify-center">
+                        {hasCourseOption && purchaseType === 'course' ? (
+                            <div className="animate-fade-in">
+                                <p className="text-sm text-text-muted">
+                                    Обычная цена: <span className="line-through">{originalCourseTotal.toLocaleString('ru-RU')} р.</span>
+                                </p>
+                                <p className="text-base font-semibold text-green-400 mb-2">
+                                    Ваша экономия: {savings.toLocaleString('ru-RU')} р.
+                                </p>
+                                <p className="text-2xl sm:text-3xl font-bold text-accent font-sans">
+                                    {finalPrice.toLocaleString('ru-RU')} р.
+                                </p>
+                                <p className="text-sm text-accent/80 mt-1">
+                                    ({discountedPrice.toLocaleString('ru-RU')} р. за сеанс)
+                                </p>
+                            </div>
+                        ) : (
+                            <div>
+                                <p className="text-2xl sm:text-3xl font-bold text-accent font-sans">
+                                    {finalPrice.toLocaleString('ru-RU')} р.
+                                </p>
+                            </div>
                         )}
-                        <p className="text-2xl sm:text-3xl font-bold text-accent font-sans">
-                            {finalPrice.toLocaleString('ru-RU')} р.
-                        </p>
                     </div>
                 </div>
-
 
                 <p className="text-base lg:text-lg text-text-muted font-normal text-center mb-5">Длительность сеанса: {service.duration}</p>
 

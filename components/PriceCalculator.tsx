@@ -80,13 +80,19 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({ onOpenModal }) => {
         };
 
         if (isFullBodySelected && fullBodyZone) {
-            const fullBodyComponentZoneIds = [
-                'full-face', 'armpits', 'bikini-deep', 'stomach-full',
-                'buttocks', 'back-full', 'arms-full', 'legs-full',
-                'areolas', 'chest-full', 'neck-full', 'hands', 'feet'
+            // New logic: Sum up all individual granular zones to show the true total price without package discounts.
+            const granularZoneIdsForFullBody = [
+                // Face parts (instead of 'full-face')
+                'upper-lip', 'chin', 'glabella', 'sideburns', 'cheeks',
+                // Body core
+                'armpits', 'bikini-deep', 'stomach-full', 'buttocks', 'chest-full', 'back-full', 'neck-full',
+                // Arm parts (instead of 'arms-full')
+                'arms-lower', 'arms-upper', 'hands',
+                // Leg parts (instead of 'legs-full')
+                'lower-legs', 'thighs', 'feet'
             ];
             const totalIndividualPrice = allZones
-                .filter(zone => fullBodyComponentZoneIds.includes(zone.id))
+                .filter(zone => granularZoneIdsForFullBody.includes(zone.id))
                 .reduce((sum, zone) => sum + zone.price, 0);
 
             basePrice = fullBodyZone.price;
@@ -95,7 +101,7 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({ onOpenModal }) => {
                 activeZones: [fullBodyZone],
                 total: totalIndividualPrice,
                 count: 1,
-                discountPercent: 0,
+                discountPercent: 0, // Not a percentage discount, it's a fixed package price
                 discountAmount: totalIndividualPrice - fullBodyZone.price,
             };
         } else {
@@ -236,11 +242,11 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({ onOpenModal }) => {
                                 {calculation.isFullBodyMode ? (
                                     <>
                                         <div className="flex justify-between text-lg">
-                                            <span>Полная стоимость:</span>
+                                            <span>Сумма зон отдельно:</span>
                                             <span className="font-bold line-through text-text-muted">{calculation.total.toLocaleString('ru-RU')} р.</span>
                                         </div>
                                         <div className="flex justify-between text-lg text-accent">
-                                            <span>Ваша выгода:</span>
+                                            <span>Экономия по комплексу:</span>
                                             <span className="font-bold">- {calculation.discountAmount.toLocaleString('ru-RU')} р.</span>
                                         </div>
                                     </>
@@ -290,7 +296,11 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({ onOpenModal }) => {
                     </div>
                 </div>
                 <div className={`text-center text-text-muted mt-12 space-y-2 font-sans max-w-2xl mx-auto transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '400ms' }}>
-                    <p className="text-lg"><strong className="text-text-main">2 зоны:</strong> скидка 10% | <strong className="text-text-main">3 зоны:</strong> скидка 15% | <strong className="text-text-main">4 зоны:</strong> скидка 20% | <strong className="text-text-main">5+ зон:</strong> скидка 25%</p>
+                    {calculation.isFullBodyMode ? (
+                        <p className="text-lg text-accent font-semibold">Комплекс "Всё тело" уже включает максимальную выгоду.</p>
+                    ) : (
+                        <p className="text-lg"><strong className="text-text-main">2 зоны:</strong> скидка 10% | <strong className="text-text-main">3 зоны:</strong> скидка 15% | <strong className="text-text-main">4 зоны:</strong> скидка 20% | <strong className="text-text-main">5+ зон:</strong> скидка 25%</p>
+                    )}
                 </div>
             </div>
         </section>

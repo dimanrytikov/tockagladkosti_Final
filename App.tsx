@@ -9,6 +9,7 @@ import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
 import CartModal from './components/CartModal';
 import { ModalData, CartItem } from './types';
+import { SOCIAL_LINKS } from './constants';
 
 const Preloader: React.FC = () => (
     <div className="fixed inset-0 bg-primary z-[100] flex items-center justify-center">
@@ -16,6 +17,18 @@ const Preloader: React.FC = () => (
             ТГ
         </div>
     </div>
+);
+
+const FloatingTelegramButton: React.FC = () => (
+    <a
+        href={SOCIAL_LINKS.telegram}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-28 right-8 bg-accent/90 text-text-on-accent w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-lg transition-all duration-300 ease-in-out hover:bg-[#0088cc] hover:scale-110 z-40"
+        aria-label="Перейти в Telegram"
+    >
+        <span className="fab fa-telegram-plane" aria-hidden="true"></span>
+    </a>
 );
 
 
@@ -140,6 +153,7 @@ function App() {
                 </main>
                 {modalData && <BookingModal data={modalData} onClose={handleCloseModal} />}
                 {isCartOpen && <CartModal items={cartItems} onClose={() => setIsCartOpen(false)} onUpdateQuantity={handleUpdateQuantity} />}
+                <FloatingTelegramButton />
                 <BackToTopButton isVisible={showBackToTop} />
             </div>
         </>

@@ -7,11 +7,11 @@ export const SOCIAL_LINKS = {
     instagram: 'https://www.instagram.com/tochka_gladkosti_irk?igsh=NHpzeWRhcXFhbTNr',
     telegram: 'https://t.me/tochka_gladkosti',
     whatsapp: `https://wa.me/${CONTACT_PHONE}`,
-    gis: 'https://go.2gis.com/lYpPW',
+    gis: 'https://go.2gis.com/wTnIg',
 };
 
 export const servicesData: Service[] = [
-    { id: 'lifting', category: '"Лифтинг и Релакс"', title: 'Массаж лица (Скульптурный)', description: 'Сеанс естественного лифтинга. Снимает напряжение, подтягивает овал, убирает отеки и дарит глубокое расслабление.', price: 3000, duration: '70 мин', buttonText: 'Записаться на Массаж' },
+    { id: 'lifting', category: '"Лифтинг и Релакс"', title: 'Массаж лица (Комплекс техник)', description: 'Сеанс естественного лифтинга. Снимает напряжение, подтягивает овал, убирает отеки и дарит глубокое расслабление.', price: 3000, duration: '70 мин', buttonText: 'Записаться на Массаж' },
     { id: 'massage-mask', category: '"Премиум-релакс"', title: 'Массажный уход с маской', description: 'Сочетание массажа с активной маской по типу кожи. Двойной эффект: лифтинг и интенсивное питание.', price: 4000, duration: '100 мин', buttonText: 'Записаться на Уход' },
     { id: 'wow-effect', category: '"WOW-эффект на выход"', title: 'Экспресс-уход "Голливудское сияние"', description: 'Моментально выравнивает тон и дарит упругость. Включает индивидуальный пилинг и карбокситерапию.', price: 3500, duration: '70 мин', buttonText: 'Записаться на "Сияние"' },
     { id: 'express-clean', category: '"Быстрый Перезапуск"', title: 'Экспресс-чистка "Чистая кожа за час"', description: 'Идеально, если нет времени на полную процедуру. Быстрое, но тщательное очищение пор и удаление поверхностных загрязнений.', price: 3000, duration: '70 мин', buttonText: 'Записаться на Экспресс' },

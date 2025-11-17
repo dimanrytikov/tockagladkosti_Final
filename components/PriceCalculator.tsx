@@ -208,8 +208,8 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({ onOpenModal }) => {
                     <p className="text-lg text-center text-text-muted font-sans mb-12 max-w-2xl mx-auto">Выберите от двух зон и получите скидку до 25%. Калькулятор поможет рассчитать финальную стоимость.</p>
                 </div>
                 
-                <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 max-w-7xl mx-auto">
-                    <div className={`lg:col-span-2 bg-primary p-4 sm:p-6 rounded-2xl shadow-lg transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '200ms' }}>
+                <div className={`grid lg:grid-cols-3 gap-8 lg:gap-12 max-w-7xl mx-auto pb-32 lg:pb-0 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '200ms' }}>
+                    <div className="lg:col-span-2 bg-primary p-4 sm:p-6 rounded-2xl shadow-lg">
                         <div className="space-y-4">
                             {calculatorData.map(category => (
                                 <AccordionItem
@@ -223,7 +223,7 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({ onOpenModal }) => {
                             ))}
                         </div>
                     </div>
-                    <div className={`lg:col-span-1 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '300ms' }}>
+                    <div className="hidden lg:block lg:col-span-1">
                         <div className="sticky top-28 bg-primary p-6 rounded-2xl shadow-lg text-text-main font-sans">
                             <h3 className="font-heading text-2xl font-normal text-text-main mb-4">Ваш Комплекс:</h3>
                             <div className="min-h-[100px] max-h-[180px] overflow-y-auto border-b border-gray-700 pb-4 mb-4 text-text-main pr-2">
@@ -303,6 +303,24 @@ const PriceCalculator: React.FC<PriceCalculatorProps> = ({ onOpenModal }) => {
                     )}
                 </div>
             </div>
+            
+            {/* Mobile Floating Summary Bar */}
+            {calculation.count > 0 && (
+                <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-primary/90 backdrop-blur-md border-t border-gray-700 p-4 shadow-[0_-4px_15px_rgba(0,0,0,0.2)] animate-fade-in-up z-30">
+                    <div className="container mx-auto flex justify-between items-center gap-4">
+                        <div className="text-left">
+                            <span className="text-sm text-text-muted">ИТОГО:</span>
+                            <p className="text-2xl font-bold text-accent">{calculation.finalPrice.toLocaleString('ru-RU')} р.</p>
+                        </div>
+                        <button
+                            onClick={handleBookComplex}
+                            className="cta-button px-6 py-3 text-base whitespace-nowrap"
+                        >
+                            Записаться
+                        </button>
+                    </div>
+                </div>
+            )}
         </section>
     );
 };
